@@ -17,7 +17,7 @@ public class ProductController {
 
         Product rs= service.getById(productId);
         if(rs == null)
-            return  ResponseEntity.badRequest().build();
+            return  ResponseEntity.notFound().build();
         return  ResponseEntity.ok().body(rs);
     }
 }

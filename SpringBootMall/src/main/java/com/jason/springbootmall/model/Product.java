@@ -7,8 +7,8 @@ import java.util.Date;
 @Data
 public class Product {
     private Integer productId;
-    private String  product_name;
-    private String  category;
+    private String  productName;
+    private PriductCategory  category;
     private String  imageUrl;
     private Integer price;
     private Integer stock;
@@ -16,4 +16,8 @@ public class Product {
     private Date    createdDate;
     private Date    lastModifiedDate;
 
+    public enum  PriductCategory{
+     FOOD,CAR,BOOK
+    }
 }
+
