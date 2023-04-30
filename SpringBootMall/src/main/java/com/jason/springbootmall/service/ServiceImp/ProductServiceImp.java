@@ -20,4 +20,9 @@ public class ProductServiceImp implements ServiceBase<Product, ProductRequest> {
     public int create(ProductRequest dto) {
         return dao.create(dto);
     }
+
+    @Override
+    public void updateById(Integer id, ProductRequest productRequest) {
+        dao.updateById(id,productRequest);
+    }
 }

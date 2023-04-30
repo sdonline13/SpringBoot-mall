@@ -52,7 +52,7 @@ public class ProductDaoImpl  implements Dao<Product, ProductRequest> {
                 "CREATED_DATE, " +
                 "LAST_MODIFIED_DATE) " +
                 "VALUES(" +
-                ":produceName," +
+                ":productName," +
                 ":category," +
                 ":imageUrl," +
                 ":price," +
@@ -62,7 +62,7 @@ public class ProductDaoImpl  implements Dao<Product, ProductRequest> {
                 ":lastModifiedDate" +
                 ")";
         Map<String, Object> map = new HashMap<>();
-        map.put("produceName",productRequest.getProductName());
+        map.put("productName",productRequest.getProductName());
         map.put("category",productRequest.getCategory().toString());
         map.put("imageUrl",productRequest.getImageUrl());
         map.put("price",productRequest.getPrice());
@@ -76,5 +76,30 @@ public class ProductDaoImpl  implements Dao<Product, ProductRequest> {
         namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),key);
        int id=key.getKey().intValue();
        return id;
+    }
+
+    @Override
+    public void updateById(Integer id, ProductRequest productRequest) {
+        String sql="update  product set " +
+                "product_name=:productName," +
+                "category=:category," +
+                "IMAGE_URL=:imageUrl," +
+                "PRICE=:price," +
+                "STOCK=:stock," +
+                "description=:description," +
+                "LAST_MODIFIED_DATE=:lastModifiedDate" +
+                " where " +
+                "product_id=:productId;";
+        Map<String, Object> map = new HashMap<>();
+        map.put("productName",productRequest.getProductName());
+        map.put("category",productRequest.getCategory().toString());
+        map.put("imageUrl",productRequest.getImageUrl());
+        map.put("price",productRequest.getPrice());
+        map.put("stock",productRequest.getStock());
+        map.put("description",productRequest.getDescription());
+        Date now = new Date();
+        map.put("lastModifiedDate",now);
+        map.put("productId",id);
+        namedParameterJdbcTemplate.update(sql,map);
     }
 }

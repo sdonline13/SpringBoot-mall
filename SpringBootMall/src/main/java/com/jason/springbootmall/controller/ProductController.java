@@ -28,4 +28,16 @@ public class ProductController {
         Product rs=productService.getById(productId);
         return ResponseEntity.status(HttpStatus.CREATED).body(rs);
     }
+
+    @PutMapping ("/products/{productId}")
+    public ResponseEntity<Product> updateProduct(@PathVariable(name = "productId")Integer productId,
+                                                 @RequestBody @Valid ProductRequest  request) {
+        Product check=productService.getById(productId);
+        if(check == null)//先檢查商品是否存在
+            return ResponseEntity.badRequest().build();
+        productService.updateById(productId,request);
+        Product rs=productService.getById(productId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(rs);
+    }
+
 }
