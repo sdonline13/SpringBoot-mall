@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
     @Autowired
@@ -46,6 +48,14 @@ public class ProductController {
             return ResponseEntity.badRequest().build();
         productService.deleteById(productId);
         return ResponseEntity.status(200).build();
+    }
+
+
+    //查詢類
+    @GetMapping("/products")
+    public  ResponseEntity<List<Product>>getProductService(){
+       List<Product> products= productService.getAll();
+        return ResponseEntity.ok().body(products);
     }
 
 }

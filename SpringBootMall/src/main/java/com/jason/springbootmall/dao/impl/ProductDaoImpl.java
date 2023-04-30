@@ -110,4 +110,21 @@ public class ProductDaoImpl  implements Dao<Product, ProductRequest> {
         map.put("id",id);
         namedParameterJdbcTemplate.update(sql,map);
     }
+
+    @Override
+    public List<Product> getAll() {
+        String sql ="select  " +
+                "product_id," +
+                "product_name, " +
+                "category, " +
+                "image_url, " +
+                "price, stock, " +
+                "description, " +
+                "created_date, " +
+                "last_modified_date " +
+                "from  product ";
+        Map<String, Object> map = new HashMap<>();
+        List<Product> products= namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
+        return products;
+    }
 }

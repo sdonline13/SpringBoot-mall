@@ -1,5 +1,7 @@
 package com.jason.springbootmall.service;
 
+import java.util.List;
+
 public interface ServiceBase<T,Dto>{
     T getById(Integer id);
     int create(Dto dto);
@@ -7,4 +9,5 @@ public interface ServiceBase<T,Dto>{
     void updateById(Integer id,Dto dto);
 
     void deleteById(Integer id);
+    List<T> getAll();
 }

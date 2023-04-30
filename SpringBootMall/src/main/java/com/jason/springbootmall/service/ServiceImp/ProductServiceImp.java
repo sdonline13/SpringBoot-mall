@@ -7,6 +7,8 @@ import com.jason.springbootmall.service.ServiceBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImp implements ServiceBase<Product, ProductRequest> {
     @Autowired
@@ -29,5 +31,10 @@ public class ProductServiceImp implements ServiceBase<Product, ProductRequest> {
     @Override
     public void deleteById(Integer productId) {
         dao.deleteById(productId);
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return dao.getAll();
     }
 }
