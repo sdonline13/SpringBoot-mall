@@ -6,4 +6,5 @@ public interface Dao<T,Dto> {
     T getById(Integer id);
     Integer create(Dto dto);
     void  updateById(Integer id, Dto dto);
+    void deleteById(Integer id);
 }

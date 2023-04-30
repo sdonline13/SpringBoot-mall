@@ -25,4 +25,9 @@ public class ProductServiceImp implements ServiceBase<Product, ProductRequest> {
     public void updateById(Integer id, ProductRequest productRequest) {
         dao.updateById(id,productRequest);
     }
+
+    @Override
+    public void deleteById(Integer productId) {
+        dao.deleteById(productId);
+    }
 }

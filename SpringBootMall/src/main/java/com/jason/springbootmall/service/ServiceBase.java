@@ -5,4 +5,6 @@ public interface ServiceBase<T,Dto>{
     int create(Dto dto);
 
     void updateById(Integer id,Dto dto);
+
+    void deleteById(Integer id);
 }
