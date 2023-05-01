@@ -12,4 +12,6 @@ public interface ProductDao {
     void deleteById(Integer id);
 
     List<Product> getAll();
+
+    List<Product> getProducts(Product.PriductCategory category);
 }

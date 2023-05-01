@@ -37,4 +37,9 @@ public class ProductServiceImp implements ProductService {
     public List<Product> getAll() {
         return dao.getAll();
     }
+
+    @Override
+    public List<Product> getProducts(Product.PriductCategory category) {
+       return dao.getProducts(category);
+    }
 }

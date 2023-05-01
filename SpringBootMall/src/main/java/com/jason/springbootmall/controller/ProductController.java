@@ -51,19 +51,18 @@ public class ProductController {
     }
 
 
-    //查詢類
+
+
     @GetMapping("/products")
-    public  ResponseEntity<List<Product>>getProducts(){
-       List<Product> products= productService.getAll();
+    public  ResponseEntity<List<Product>>getProduct(
+            @RequestParam(required = false) Product.PriductCategory category
+    ){
+        List<Product> products;
+        if(category!=null)
+            products= productService.getProducts(category);
+        else//若無條件則回傳全部商品
+            products= productService.getAll();
         return ResponseEntity.ok().body(products);
     }
-
-//    @GetMapping("/products")
-//    public  ResponseEntity<List<Product>>getProduct(
-//            @RequestParam Product.PriductCategory category
-//    ){
-//        List<Product> products= productService.getAll();
-//        return ResponseEntity.ok().body(products);
-//    }
 
 }
