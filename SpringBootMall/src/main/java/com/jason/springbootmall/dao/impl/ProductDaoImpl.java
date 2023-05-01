@@ -1,6 +1,6 @@
 package com.jason.springbootmall.dao.impl;
 
-import com.jason.springbootmall.dao.Dao;
+import com.jason.springbootmall.dao.ProductDao;
 import com.jason.springbootmall.dao.rowMapper.ProductRowMapper;
 import com.jason.springbootmall.dto.ProductRequest;
 import com.jason.springbootmall.model.Product;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ProductDaoImpl  implements Dao<Product, ProductRequest> {
+public class ProductDaoImpl  implements ProductDao {
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Override

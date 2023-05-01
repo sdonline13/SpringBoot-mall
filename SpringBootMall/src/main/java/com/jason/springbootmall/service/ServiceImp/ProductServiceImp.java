@@ -1,18 +1,18 @@
 package com.jason.springbootmall.service.ServiceImp;
 
-import com.jason.springbootmall.dao.Dao;
+import com.jason.springbootmall.dao.ProductDao;
 import com.jason.springbootmall.dto.ProductRequest;
 import com.jason.springbootmall.model.Product;
-import com.jason.springbootmall.service.ServiceBase;
+import com.jason.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ProductServiceImp implements ServiceBase<Product, ProductRequest> {
+public class ProductServiceImp implements ProductService {
     @Autowired
-    Dao<Product,ProductRequest> dao;
+    ProductDao dao;
     @Override
     public Product getById(Integer productId) {
         return dao.getById(productId);

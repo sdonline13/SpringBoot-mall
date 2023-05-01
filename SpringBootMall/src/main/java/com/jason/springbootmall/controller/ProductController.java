@@ -2,7 +2,7 @@ package com.jason.springbootmall.controller;
 
 import com.jason.springbootmall.dto.ProductRequest;
 import com.jason.springbootmall.model.Product;
-import com.jason.springbootmall.service.ServiceBase;
+import com.jason.springbootmall.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class ProductController {
     @Autowired
-    ServiceBase<Product,ProductRequest> productService;
+    ProductService productService;
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable(name = "productId") int productId) {
 
@@ -53,9 +53,17 @@ public class ProductController {
 
     //查詢類
     @GetMapping("/products")
-    public  ResponseEntity<List<Product>>getProductService(){
+    public  ResponseEntity<List<Product>>getProducts(){
        List<Product> products= productService.getAll();
         return ResponseEntity.ok().body(products);
     }
+
+//    @GetMapping("/products")
+//    public  ResponseEntity<List<Product>>getProduct(
+//            @RequestParam Product.PriductCategory category
+//    ){
+//        List<Product> products= productService.getAll();
+//        return ResponseEntity.ok().body(products);
+//    }
 
 }
