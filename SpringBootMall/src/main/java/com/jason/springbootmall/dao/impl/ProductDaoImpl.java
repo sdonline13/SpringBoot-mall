@@ -129,7 +129,7 @@ public class ProductDaoImpl  implements ProductDao {
     }
 
     @Override
-    public List<Product> getProducts(Product.PriductCategory category) {
+    public List<Product> getProducts(Product.PriductCategory category,String  search) {
         String sql ="select  " +
                 "product_id," +
                 "product_name, " +
@@ -145,6 +145,10 @@ public class ProductDaoImpl  implements ProductDao {
         if(category != null){
             sql += " And category =:category";
             map.put("category",category.name());
+        }
+        if(search !=null){
+            sql += " And product_Name like :search";
+            map.put("search","%"+search+"%");//關鍵字查詢
         }
         List<Product> products = namedParameterJdbcTemplate.query(sql,map,new ProductRowMapper());
 
