@@ -127,4 +127,27 @@ public class ProductDaoImpl  implements ProductDao {
         List<Product> products= namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
         return products;
     }
+
+    @Override
+    public List<Product> getProducts(Product.PriductCategory category) {
+        String sql ="select  " +
+                "product_id," +
+                "product_name, " +
+                "category, " +
+                "image_url, " +
+                "price, stock, " +
+                "description, " +
+                "created_date, " +
+                "last_modified_date " +
+                "from  product " +
+                "where 1=1";
+        Map<String, Object> map = new HashMap<>();
+        if(category != null){
+            sql += " And category =:category";
+            map.put("category",category.name());
+        }
+        List<Product> products = namedParameterJdbcTemplate.query(sql,map,new ProductRowMapper());
+
+        return products;
+    }
 }

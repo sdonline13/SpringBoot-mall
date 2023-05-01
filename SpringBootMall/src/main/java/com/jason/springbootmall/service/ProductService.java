@@ -13,4 +13,7 @@ public interface ProductService {
 
     void deleteById(Integer id);
     List<Product> getAll();
+
+    List<Product> getProducts(Product.PriductCategory category);
+
 }
