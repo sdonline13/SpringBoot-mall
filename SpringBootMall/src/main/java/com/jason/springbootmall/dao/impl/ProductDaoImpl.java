@@ -118,7 +118,8 @@ public class ProductDaoImpl  implements ProductDao {
                 "product_name, " +
                 "category, " +
                 "image_url, " +
-                "price, stock, " +
+                "price, " +
+                "stock, " +
                 "description, " +
                 "created_date, " +
                 "last_modified_date " +
@@ -133,6 +134,7 @@ public class ProductDaoImpl  implements ProductDao {
             sql += " And product_Name like :search";
             map.put("search","%"+productStatus.getSearch()+"%");//關鍵字查詢
         }
+        sql += " ORDER BY "+productStatus.getOrderBy().name()+" "+productStatus.getSort().name();
         List<Product> products = namedParameterJdbcTemplate.query(sql,map,new ProductRowMapper());
 
         return products;
