@@ -1,6 +1,7 @@
 package com.jason.springbootmall.service.ServiceImp;
 
 import com.jason.springbootmall.dao.ProductDao;
+import com.jason.springbootmall.dto.ProductQueryParams;
 import com.jason.springbootmall.dto.ProductRequest;
 import com.jason.springbootmall.model.Product;
 import com.jason.springbootmall.service.ProductService;
@@ -32,14 +33,8 @@ public class ProductServiceImp implements ProductService {
     public void deleteById(Integer productId) {
         dao.deleteById(productId);
     }
-
     @Override
-    public List<Product> getAll() {
-        return dao.getAll();
-    }
-
-    @Override
-    public List<Product> getProducts(Product.PriductCategory category,String search) {
-       return dao.getProducts(category,search);
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
+       return dao.getProducts(productQueryParams);
     }
 }

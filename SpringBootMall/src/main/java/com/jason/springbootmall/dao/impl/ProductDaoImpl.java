@@ -2,6 +2,7 @@ package com.jason.springbootmall.dao.impl;
 
 import com.jason.springbootmall.dao.ProductDao;
 import com.jason.springbootmall.dao.rowMapper.ProductRowMapper;
+import com.jason.springbootmall.dto.ProductQueryParams;
 import com.jason.springbootmall.dto.ProductRequest;
 import com.jason.springbootmall.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,26 +111,8 @@ public class ProductDaoImpl  implements ProductDao {
         map.put("id",id);
         namedParameterJdbcTemplate.update(sql,map);
     }
-
     @Override
-    public List<Product> getAll() {
-        String sql ="select  " +
-                "product_id," +
-                "product_name, " +
-                "category, " +
-                "image_url, " +
-                "price, stock, " +
-                "description, " +
-                "created_date, " +
-                "last_modified_date " +
-                "from  product ";
-        Map<String, Object> map = new HashMap<>();
-        List<Product> products= namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
-        return products;
-    }
-
-    @Override
-    public List<Product> getProducts(Product.PriductCategory category,String  search) {
+    public List<Product> getProducts(ProductQueryParams productStatus) {
         String sql ="select  " +
                 "product_id," +
                 "product_name, " +
@@ -142,13 +125,13 @@ public class ProductDaoImpl  implements ProductDao {
                 "from  product " +
                 "where 1=1";
         Map<String, Object> map = new HashMap<>();
-        if(category != null){
+        if(productStatus.getCategory() != null){
             sql += " And category =:category";
-            map.put("category",category.name());
+            map.put("category",productStatus.getCategory().name());
         }
-        if(search !=null){
+        if(productStatus.getSearch() !=null){
             sql += " And product_Name like :search";
-            map.put("search","%"+search+"%");//關鍵字查詢
+            map.put("search","%"+productStatus.getSearch()+"%");//關鍵字查詢
         }
         List<Product> products = namedParameterJdbcTemplate.query(sql,map,new ProductRowMapper());
 

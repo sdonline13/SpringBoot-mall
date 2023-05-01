@@ -1,5 +1,6 @@
 package com.jason.springbootmall.controller;
 
+import com.jason.springbootmall.dto.ProductQueryParams;
 import com.jason.springbootmall.dto.ProductRequest;
 import com.jason.springbootmall.model.Product;
 import com.jason.springbootmall.service.ProductService;
@@ -58,11 +59,11 @@ public class ProductController {
             @RequestParam(required = false)String search,
             @RequestParam(required = false) Product.PriductCategory category
     ){
+        ProductQueryParams productQueryParams= new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
         List<Product> products;
-        if(category!=null||search!=null)
-            products= productService.getProducts(category,search);
-        else//若無條件則回傳全部商品
-            products= productService.getAll();
+        products= productService.getProducts(productQueryParams);
         return ResponseEntity.ok().body(products);
     }
 
