@@ -55,11 +55,12 @@ public class ProductController {
 
     @GetMapping("/products")
     public  ResponseEntity<List<Product>>getProduct(
+            @RequestParam(required = false)String search,
             @RequestParam(required = false) Product.PriductCategory category
     ){
         List<Product> products;
-        if(category!=null)
-            products= productService.getProducts(category);
+        if(category!=null||search!=null)
+            products= productService.getProducts(category,search);
         else//若無條件則回傳全部商品
             products= productService.getAll();
         return ResponseEntity.ok().body(products);

@@ -39,7 +39,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public List<Product> getProducts(Product.PriductCategory category) {
-       return dao.getProducts(category);
+    public List<Product> getProducts(Product.PriductCategory category,String search) {
+       return dao.getProducts(category,search);
     }
 }
