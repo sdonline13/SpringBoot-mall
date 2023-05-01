@@ -7,4 +7,15 @@ import lombok.Data;
 public class ProductQueryParams {
     Product.PriductCategory category;
     String search;
+    OrderBy orderBy;
+    Sort sort;
+    public enum  OrderBy{
+        last_modified_date,
+        price,
+        stock
+    }
+    public   enum  Sort{
+        ASC,
+        DESC
+    }
 }
