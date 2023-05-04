@@ -18,4 +18,6 @@ public class ProductQueryParams {
         ASC,
         DESC
     }
+    private  Integer limit;
+    private  Integer offset;
 }
