@@ -16,4 +16,6 @@ public interface ProductService {
 
     List<Product> getProducts(ProductQueryParams productQueryParams);
 
+    int countProduct(ProductQueryParams productQueryParams);
+
 }
