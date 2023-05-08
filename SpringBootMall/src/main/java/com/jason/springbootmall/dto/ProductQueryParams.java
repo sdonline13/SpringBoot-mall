@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class ProductQueryParams {
-    Product.PriductCategory category;
+    Product.ProductCategory category;
     String search;
     OrderBy orderBy;
     Sort sort;
