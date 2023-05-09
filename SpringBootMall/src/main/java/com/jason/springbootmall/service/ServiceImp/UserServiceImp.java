@@ -16,7 +16,7 @@ public class UserServiceImp implements UserService {
     @Autowired
     UserDao userDao;
 
-
+    //Sha256 Hash
     public static String encode(String password)  {
         MessageDigest md = null;
         try {
