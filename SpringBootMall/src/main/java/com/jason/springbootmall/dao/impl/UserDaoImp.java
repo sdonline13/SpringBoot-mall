@@ -25,7 +25,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public Integer createUser(UserRegisterRequest userRequest) {
-        String sql = "INSERT INTO user(email,password,create_date,last_modified_date) VALUES (:email, :password, :createDate,:lastModifiedDate)";
+        String sql = "INSERT INTO `user`(email,password,create_date,last_modified_date) VALUES (:email, :password, :createDate,:lastModifiedDate)";
         Map<String,Object> map=new HashMap<>();
         map.put("email",userRequest.getEmail());
         map.put("password",userRequest.getPassword());
@@ -40,7 +40,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserById(int userId) {
-        String sql ="Select user_Id ,email ,password ,create_date ,last_modified_date from user where user_Id = :userId";
+        String sql ="Select user_Id ,email ,password ,create_date ,last_modified_date from `user` where user_Id = :userId";
         Map<String,Object> map=new HashMap<>();
         map.put("userId",userId);
         List<User> rsList =namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
@@ -51,7 +51,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        String sql ="Select user_Id ,email ,password ,create_date ,last_modified_date from user where email = :email";
+        String sql ="Select user_Id ,email ,password ,create_date ,last_modified_date from `user` where email = :email";
         Map<String,Object> map=new HashMap<>();
         map.put("email",email);
         List<User> rsList =namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());

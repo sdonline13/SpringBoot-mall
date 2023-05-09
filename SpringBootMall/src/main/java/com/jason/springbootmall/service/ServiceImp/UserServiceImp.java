@@ -62,8 +62,8 @@ public class UserServiceImp implements UserService {
             log.warn("信箱: {}  尚未註冊",userLoginRequest.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//尚未註冊
         }
-        String inputPassword= sha256Encode( userLoginRequest.getPassword());
-        if(!inputPassword.equals(user.getPassword())){
+        String hashPassword= sha256Encode( userLoginRequest.getPassword());
+        if(!hashPassword.equals(user.getPassword())){
             log.warn("密碼錯誤");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//密碼錯誤
         }
