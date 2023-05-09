@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 import org.slf4j.Logger;
 import java.awt.image.RasterFormatException;
@@ -23,7 +24,7 @@ public class UserServiceImp implements UserService {
     UserDao userDao;
 
     //Sha256 Hash
-    public static String encode(String password)  {
+    public  String sha256Encode(String password)  {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-256");
@@ -33,10 +34,14 @@ public class UserServiceImp implements UserService {
         byte[] hash = md.digest(password.getBytes());
         return Base64.getEncoder().encodeToString(hash);
     }
+    //md5 Hash
+    public  String md5Encode(String password){
+        return DigestUtils.md5DigestAsHex(password.getBytes());
+    }
 
     @Override
     public int register(UserRegisterRequest userRegisterRequest) {
-        userRegisterRequest.setPassword(encode((userRegisterRequest.getPassword())));
+        userRegisterRequest.setPassword(sha256Encode((userRegisterRequest.getPassword())));
         return userDao.createUser(userRegisterRequest);
     }
 
@@ -57,7 +62,7 @@ public class UserServiceImp implements UserService {
             log.warn("信箱: {}  尚未註冊",userLoginRequest.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//尚未註冊
         }
-        String inputPassword= encode( userLoginRequest.getPassword());
+        String inputPassword= sha256Encode( userLoginRequest.getPassword());
         if(!inputPassword.equals(user.getPassword())){
             log.warn("密碼錯誤");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//密碼錯誤
