@@ -60,8 +60,5 @@ public class UserDaoImp implements UserDao {
         return null;
     }
 
-    @Override
-    public User login(UserLoginRequest userLoginRequest) {
-        return null;
-    }
+
 }
