@@ -120,7 +120,7 @@ public class ProductControllerTest {
         ProductRequest productRequest=new ProductRequest();
         String  json=objectMapper.writeValueAsString(productRequest);
         RequestBuilder builder=MockMvcRequestBuilders
-                .put("/products/{productId}",5)
+                .put("/products/{productId}",20000)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
         mockMvc.perform(builder)
@@ -142,7 +142,7 @@ public class ProductControllerTest {
     }
     @Test
     @Transactional
-    public void  deleteProduct_Faild_Test() throws Exception {
+    public void  deleteProduct_Failed_Test() throws Exception {
         RequestBuilder builder=MockMvcRequestBuilders
                 .delete("/products/{productId}",-1);
 
