@@ -2,6 +2,7 @@ package com.jason.springbootmall.dao.impl;
 
 import com.jason.springbootmall.dao.UserDao;
 import com.jason.springbootmall.dao.rowMapper.UserRowMapper;
+import com.jason.springbootmall.dto.UserLoginRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
 import com.jason.springbootmall.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,11 @@ public class UserDaoImp implements UserDao {
         List<User> rsList =namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
         if(rsList != null && rsList.size() > 0)
             return rsList.get(0);
+        return null;
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
         return null;
     }
 }

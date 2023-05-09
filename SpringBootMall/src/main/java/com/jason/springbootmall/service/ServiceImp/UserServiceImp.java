@@ -1,18 +1,24 @@
 package com.jason.springbootmall.service.ServiceImp;
 
 import com.jason.springbootmall.dao.UserDao;
+import com.jason.springbootmall.dto.UserLoginRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
 import com.jason.springbootmall.model.User;
 import com.jason.springbootmall.service.UserService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.server.ResponseStatusException;
+import org.slf4j.Logger;
+import java.awt.image.RasterFormatException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 @Service
 public class UserServiceImp implements UserService {
+    private  final  static Logger log= LoggerFactory.getLogger(UserServiceImp.class);
     @Autowired
     UserDao userDao;
 
@@ -42,5 +48,21 @@ public class UserServiceImp implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
+        User user=userDao.getUserByEmail(userLoginRequest.getEmail());
+        if(user==null){
+            log.warn("信箱: {}  尚未註冊",userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//尚未註冊
+        }
+        String inputPassword= encode( userLoginRequest.getPassword());
+        if(!inputPassword.equals(user.getPassword())){
+            log.warn("密碼錯誤");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//密碼錯誤
+        }
+
+        return user;//登入成功
     }
 }
