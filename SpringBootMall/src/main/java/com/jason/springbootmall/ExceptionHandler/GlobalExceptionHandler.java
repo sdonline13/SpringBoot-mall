@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleSqlException(SQLIntegrityConstraintViolationException e){
         String errorMessage = "操作失敗，可能是因為重複的數據已存在。";
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
+        return ResponseEntity.status(400).body(errorMessage);
 
     }
 }
