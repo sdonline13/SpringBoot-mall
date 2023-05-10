@@ -62,4 +62,16 @@ public class OrderServiceImp  implements OrderService {
         order.setOrderItemList(orderItemList);
         return order;
     }
+
+    @Override
+    public Order getOrderByUserId(Integer userId) {
+        Order order=orderDao.getOrderByUserId(userId);
+        if(order==null)
+            return null;
+        //拿到商品相關數據
+        List<OrderItem> orderItemList =orderDao.getOrderItemsByOrderId(order.getOrderId());
+
+        order.setOrderItemList(orderItemList);
+        return order;
+    }
 }

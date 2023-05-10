@@ -90,6 +90,27 @@ public class OrderDaoImp  implements OrderDao {
             return orderList.get(0);
         return null;
     }
+    //得到使用者的全部訂單
+    @Override
+    public Order getOrderByUserId(Integer userId) {
+        String sql = "SELECT " +
+                "order_id, " +
+                "user_id, " +
+                "total_amount, " +
+                "created_date, " +
+                "last_modified_date from `order` " +
+                "where " +
+                "user_id = :userId";
+
+        Map<String, Object> map =new HashMap<>();
+        map.put("userId",userId);
+        List<Order> orderList=namedParameterJdbcTemplate.query(sql,map,new OrderRowMapper());
+
+        if(orderList.size() > 0)
+            return orderList.get(0);
+        return null;
+    }
+
     //取得該筆訂單的所有商品資訊
     @Override
     public List<OrderItem> getOrderItemsByOrderId(Integer orderId) {
@@ -113,4 +134,7 @@ public class OrderDaoImp  implements OrderDao {
 
         return orderItemList;
     }
+
+
+
 }

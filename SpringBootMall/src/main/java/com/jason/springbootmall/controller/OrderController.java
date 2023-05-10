@@ -24,7 +24,7 @@ public class OrderController {
     @GetMapping("/users/orders/{userId}")
     public ResponseEntity<?>getOrders(@PathVariable(name = "userId")int userId ){
 
-        Order order = orderService.getOrderById(userId);
+        Order order = orderService.getOrderByUserId(userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(order);//得到詳細資訊
     }
 }
