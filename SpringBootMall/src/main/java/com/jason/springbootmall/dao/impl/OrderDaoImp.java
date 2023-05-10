@@ -1,6 +1,9 @@
 package com.jason.springbootmall.dao.impl;
 
 import com.jason.springbootmall.dao.OrderDao;
+import com.jason.springbootmall.dao.rowMapper.OrderItemRawMapper;
+import com.jason.springbootmall.dao.rowMapper.OrderRowMapper;
+import com.jason.springbootmall.model.Order;
 import com.jason.springbootmall.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -66,5 +69,48 @@ public class OrderDaoImp  implements OrderDao {
             parameterSources[i].addValue("amount",orderItem.getAmount());
         }
         namedParameterJdbcTemplate.batchUpdate(sql,parameterSources);
+    }
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+        String sql = "SELECT " +
+                "order_id, " +
+                "user_id, " +
+                "total_amount, " +
+                "created_date, " +
+                "last_modified_date from `order` " +
+                "where " +
+                "order_id = :orderId";
+
+        Map<String, Object> map =new HashMap<>();
+        map.put("orderId",orderId);
+        List<Order> orderList=namedParameterJdbcTemplate.query(sql,map,new OrderRowMapper());
+
+        if(orderList.size() > 0)
+            return orderList.get(0);
+        return null;
+    }
+    //取得該筆訂單的所有商品資訊
+    @Override
+    public List<OrderItem> getOrderItemsByOrderId(Integer orderId) {
+        String  sql="SELECT " +
+                " oi.order_item_id," +
+                " oi.order_id, " +
+                " oi.product_id, " +
+                " oi.quantity, " +
+                " oi.amount, " +
+                " p.product_name ," +
+                " p.image_url   " +
+                " FROM order_item  as oi " +
+                " Left JOIN " +
+                " product  as p ON oi.product_id = p.product_id" +
+                " where oi.order_id =:orderId";
+
+        Map<String ,Object> map=new HashMap<>();
+        map.put("orderId",orderId);
+        //一筆訂單包含多個 item ，故回傳list
+        List<OrderItem> orderItemList=namedParameterJdbcTemplate.query(sql, map, new OrderItemRawMapper());
+
+        return orderItemList;
     }
 }
