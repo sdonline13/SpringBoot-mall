@@ -52,15 +52,17 @@ https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
 
 ## Usage 
 
-<h3>開啟 SpringBootMall-0.0.1-SNAPSHOT.jar</h3>
+<h3>使用命令提示列開啟 SpringBootMall-0.0.1-SNAPSHOT.jar</h3>
  
-<h3>位置 : SpringBoot-mall\SpringBootMall</h3>
+<h3>位置 : SpringBoot-mall\Builds</h3>
 
-
-![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/0f32fd6a-076c-4f34-88b7-fd804482fc47)
+ ```sh
+java -jar SpringBootMall-0.0.1-SNAPSHOT.jar
+```
 
  
- 
+ ![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/85d22d26-da0e-4ddd-97fa-9d492beb39bc)
+
  
  <h3>開啟 Swagger  :  </h3> http://localhost:8080/swagger-ui/index.html#/
  
