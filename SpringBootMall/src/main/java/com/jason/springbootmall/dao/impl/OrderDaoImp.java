@@ -23,7 +23,7 @@ public class OrderDaoImp  implements OrderDao {
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Integer createOrder(Integer userId, Integer totalAmount) {
+    public Integer createOrder(Integer userId, int totalAmount) {
         String sql = "INSERT INTO `order`(user_Id, total_amount , created_date, last_modified_date) " +
                 "VALUES(:userId, :totalAmount, :createdDate, :lastModifiedDate) ";
         Map<String,Object> map=new HashMap<>();
@@ -37,6 +37,9 @@ public class OrderDaoImp  implements OrderDao {
         KeyHolder keyHolder=new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder);
         int orderId=keyHolder.getKey().intValue();
+
+
+
         return orderId;
     }
 
