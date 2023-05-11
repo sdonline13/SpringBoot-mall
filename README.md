@@ -26,16 +26,16 @@ Linux:
 sudo yum install mysql-community-server
 ```
 
-Download JRE:
+<h3>Download JRE:</h3>
 
 https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
 
 
 ## Usage 
 
-開啟 SpringBootMall-0.0.1-SNAPSHOT.jar
+<h3>開啟 SpringBootMall-0.0.1-SNAPSHOT.jar</h3>
  
-位置 : SpringBoot-mall\SpringBootMall
+<h3>位置 : SpringBoot-mall\SpringBootMall</h3>
 
 
 ![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/0f32fd6a-076c-4f34-88b7-fd804482fc47)
@@ -43,7 +43,9 @@ https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
  
  
  
- 開啟 Swagger  : http://localhost:8080/swagger-ui/index.html#/
+ <h3>開啟 Swagger  :  </h3> http://localhost:8080/swagger-ui/index.html#/
+ 
+ 
  
  ![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/1ee85a2c-04b1-4e6a-8f02-602c5c0f52fe)
 
