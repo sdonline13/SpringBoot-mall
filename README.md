@@ -42,6 +42,10 @@ sudo yum install mysql-community-server
 https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
 
 
+<h3>Import MySql Table Sql</h3>
+
+位置 : SpringBoot-mall\SpringBootMall\MySqlTable    Tables.sql
+
 ## Usage 
 
 <h3>開啟 SpringBootMall-0.0.1-SNAPSHOT.jar</h3>
