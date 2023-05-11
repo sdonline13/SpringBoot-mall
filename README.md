@@ -13,7 +13,7 @@ One to two paragraph statement about your product and what it does.
 
 
 
-Dpwnload MySQL Community Server 8.0.33
+Download MySQL Community Server 8.0.33
 
 
 Windows:
