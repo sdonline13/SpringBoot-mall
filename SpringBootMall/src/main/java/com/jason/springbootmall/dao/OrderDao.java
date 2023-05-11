@@ -1,5 +1,6 @@
 package com.jason.springbootmall.dao;
 
+import com.jason.springbootmall.dto.OrderQueryParams;
 import com.jason.springbootmall.model.Order;
 import com.jason.springbootmall.model.OrderItem;
 import io.swagger.models.auth.In;
@@ -13,6 +14,10 @@ public interface OrderDao {
 
     Order getOrderById(Integer orderId);
 
-    Order getOrderByUserId(Integer userId);
+
     List<OrderItem>getOrderItemsByOrderId(Integer orderId);
+
+    Integer countOrder(OrderQueryParams orderQueryParams);
+
+    List<Order> getOrders(OrderQueryParams orderQueryParams) ;
 }

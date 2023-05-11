@@ -3,6 +3,8 @@ package com.jason.springbootmall.dao.impl;
 import com.jason.springbootmall.dao.OrderDao;
 import com.jason.springbootmall.dao.rowMapper.OrderItemRawMapper;
 import com.jason.springbootmall.dao.rowMapper.OrderRowMapper;
+import com.jason.springbootmall.dto.OrderQueryParams;
+import com.jason.springbootmall.dto.ProductQueryParams;
 import com.jason.springbootmall.model.Order;
 import com.jason.springbootmall.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,26 +95,8 @@ public class OrderDaoImp  implements OrderDao {
             return orderList.get(0);
         return null;
     }
-    //得到使用者的全部訂單
-    @Override
-    public Order getOrderByUserId(Integer userId) {
-        String sql = "SELECT " +
-                "order_id, " +
-                "user_id, " +
-                "total_amount, " +
-                "created_date, " +
-                "last_modified_date from `order` " +
-                "where " +
-                "user_id = :userId";
 
-        Map<String, Object> map =new HashMap<>();
-        map.put("userId",userId);
-        List<Order> orderList=namedParameterJdbcTemplate.query(sql,map,new OrderRowMapper());
 
-        if(orderList.size() > 0)
-            return orderList.get(0);
-        return null;
-    }
 
     //取得該筆訂單的所有商品資訊
     @Override
@@ -138,6 +122,48 @@ public class OrderDaoImp  implements OrderDao {
         return orderItemList;
     }
 
+    @Override
+    public Integer countOrder(OrderQueryParams orderQueryParams) {
+        String sql = "SELECT COUNT(*) FROM `order` WHERE 1=1";
 
+        Map<String,Object> map=new HashMap<>();
+
+        sql =addFilteringSql(sql ,map,orderQueryParams);
+
+        Integer count= namedParameterJdbcTemplate.queryForObject(sql,map, Integer.class);
+        return count;
+    }
+    //得到使用者的全部訂單
+    @Override
+    public List<Order> getOrders(OrderQueryParams orderQueryParams) {
+        String sql = "SELECT order_id, user_id, created_date, total_amount, last_modified_date FROM `order` WHERE 1=1";
+
+        Map<String,Object> map =new HashMap<>();
+
+        //查詢條件
+        sql =addFilteringSql(sql,map,orderQueryParams);
+
+        //排序(由新至舊)
+        sql = sql +" ORDER BY created_date DESC ";
+
+        //分頁
+        sql = sql + " Limit  :limit OFFSET :offset";
+        map.put("limit",orderQueryParams.getLimit());
+        map.put("offset",orderQueryParams.getOffset());
+
+        List<Order> orderList=namedParameterJdbcTemplate.query(sql, map, new OrderRowMapper());
+        return orderList;
+    }
+
+
+    private String  addFilteringSql(String sql, Map<String, Object> map, OrderQueryParams oderQueryParams){
+
+        if(oderQueryParams.getUserId() != null){
+            sql += " AND user_id= :userId";
+            map.put("userId",oderQueryParams.getUserId() );
+        }
+
+        return  sql;
+    }
 
 }

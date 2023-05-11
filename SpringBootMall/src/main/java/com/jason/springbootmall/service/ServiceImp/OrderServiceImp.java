@@ -5,9 +5,11 @@ import com.jason.springbootmall.dao.ProductDao;
 import com.jason.springbootmall.dao.UserDao;
 import com.jason.springbootmall.dto.BuyItem;
 import com.jason.springbootmall.dto.CreateOrderRequest;
+import com.jason.springbootmall.dto.OrderQueryParams;
 import com.jason.springbootmall.model.Order;
 import com.jason.springbootmall.model.OrderItem;
 import com.jason.springbootmall.model.Product;
+import com.jason.springbootmall.model.UserOrders;
 import com.jason.springbootmall.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,16 +96,21 @@ public class OrderServiceImp  implements OrderService {
         order.setOrderItemList(orderItemList);
         return order;
     }
+    @Override
+    public List<Order> getOrder(OrderQueryParams orderQueryParams) {
+        //根據 orderQueryParams 找出訂單
+        List<Order> orderList =orderDao.getOrders(orderQueryParams);
+        for (Order val: orderList) {
+            //針對每筆訂單 取得對應 OrderItemList
+            List<OrderItem> orderItem =orderDao.getOrderItemsByOrderId(val.getOrderId());
+            val.setOrderItemList(orderItem);
+        }
+
+        return orderList;
+    }
 
     @Override
-    public Order getOrderByUserId(Integer userId) {
-        Order order=orderDao.getOrderByUserId(userId);
-        if(order==null)
-            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        //拿到商品相關數據
-        List<OrderItem> orderItemList =orderDao.getOrderItemsByOrderId(order.getOrderId());
-
-        order.setOrderItemList(orderItemList);
-        return order;
+    public Integer countOrder(OrderQueryParams orderQueryParams) {
+        return orderDao.countOrder(orderQueryParams);
     }
 }
