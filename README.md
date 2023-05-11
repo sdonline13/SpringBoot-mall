@@ -77,6 +77,6 @@ Distributed under the XYZ license. See ``LICENSE`` for more information.
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
 [wiki]: https://github.com/yourname/yourproject/wiki
 
-<h1>About Me</h1>
+<h1>My Skills</h1>
 
 [![My Skills](https://skillicons.dev/icons?i=java,spring,cs,css,html,unity,js&theme=light)](https://skillicons.dev)
