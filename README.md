@@ -31,15 +31,22 @@ Download JRE:
 https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
 
 
-## Usage example
+## Usage 
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+開啟 SpringBootMall-0.0.1-SNAPSHOT.jar
+ 
+位置 : SpringBoot-mall\SpringBootMall
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
+
+![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/0f32fd6a-076c-4f34-88b7-fd804482fc47)
 
  
-
  
+ 
+ 開啟 Swagger  : http://localhost:8080/swagger-ui/index.html#/
+ 
+ ![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/1ee85a2c-04b1-4e6a-8f02-602c5c0f52fe)
+
 
 ## Meta
 
