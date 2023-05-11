@@ -17,7 +17,12 @@
 
 ## Installation
 
+Clone
 
+
+```sh
+https://github.com/sdonline13/SpringBoot-mall.git
+```
 
 Download MySQL Community Server 8.0.33
 
