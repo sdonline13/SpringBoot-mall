@@ -13,7 +13,7 @@ One to two paragraph statement about your product and what it does.
 
 
 
-Dpwnload mysql  Ver 8.0.33
+Dpwnload MySQL Community Server 8.0.33
 
 
 Windows:
@@ -23,7 +23,7 @@ https://dev.mysql.com/downloads/mysql/
 Linux:
 
 ```sh
-edit autoexec.bat
+sudo yum install mysql-community-server
 ```
 
 ## Usage example
