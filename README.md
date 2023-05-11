@@ -5,13 +5,24 @@
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-One to two paragraph statement about your product and what it does.
+實作項目:
+
+* 商品 CICD功能
+
+* 帳號 登入/登出 功能
+
+* 使用者 訂單功能
 
 ![](header.png)
 
 ## Installation
 
+Clone Repository
 
+
+```sh
+https://github.com/sdonline13/SpringBoot-mall.git
+```
 
 Download MySQL Community Server 8.0.33
 
@@ -50,17 +61,11 @@ https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
  ![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/1ee85a2c-04b1-4e6a-8f02-602c5c0f52fe)
 
 
-## Meta
-
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – YourEmail@example.com
-
-Distributed under the XYZ license. See ``LICENSE`` for more information.
-
-[https://github.com/yourname/github-link](https://github.com/dbader/)
+ 
 
 ## Contributing
 
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
+1. Fork it (<https://github.com/sdonline13/SpringBoot-mall/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
