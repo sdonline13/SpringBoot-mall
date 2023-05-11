@@ -45,7 +45,7 @@ public class OrderServiceImp  implements OrderService {
 
         List<OrderItem> orderItemList = new ArrayList<>();
 
-
+        //計算該筆訂單總花費
         int totalAmount = 0;
         for (BuyItem buyItem : createOrderRequest.getBuyItemList()) {
             Product product = productDao.getById(buyItem.getProductId());
@@ -63,8 +63,7 @@ public class OrderServiceImp  implements OrderService {
             //扣除商品庫存
             productDao.updateStock(product.getProductId(),product.getStock()-buyItem.getQuantity());
 
-            //計算該筆訂單總花費
-            totalAmount = 0;
+
             //計算總價錢
             int amount = buyItem.getQuantity() * product.getPrice();
             totalAmount += amount;
