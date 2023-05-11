@@ -13,8 +13,9 @@ One to two paragraph statement about your product and what it does.
 
 Windows X & Linux:
 
+Dpwnload mysql  Ver 8.0.33
 ```sh
-npm install my-crazy-module --save
+[npm install my-crazy-module --save](https://dev.mysql.com/downloads/mysql/)
 ```
 
 Windows:
