@@ -26,6 +26,11 @@ Linux:
 sudo yum install mysql-community-server
 ```
 
+Download JRE:
+
+https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
+
+
 ## Usage example
 
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
