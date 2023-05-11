@@ -5,7 +5,13 @@
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-One to two paragraph statement about your product and what it does.
+實作項目:
+
+* 商品 CICD功能
+
+* 帳號 登入/登出 功能
+
+* 使用者 訂單功能
 
 ![](header.png)
 
