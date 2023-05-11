@@ -17,7 +17,7 @@
 
 ## Installation
 
-Clone
+Clone Repository
 
 
 ```sh
