@@ -27,22 +27,22 @@ https://github.com/sdonline13/SpringBoot-mall.git
 Download MySQL Community Server 8.0.33
 
 
-Windows:
+### Windows:
 
 https://dev.mysql.com/downloads/mysql/
 
-Linux:
+### Linux:
 
 ```sh
 sudo yum install mysql-community-server
 ```
 
-<h3>Download JRE:</h3>
+## Download JRE: 
 
 https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
 
 
-<h3>Import MySql Table Sql</h3>
+## Import MySql Table Sql 
 
 位置 : SpringBoot-mall\SpringBootMall\MySqlTable    Tables.sql
 
