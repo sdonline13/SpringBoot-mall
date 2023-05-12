@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jason.springbootmall.dao.UserDao;
 import com.jason.springbootmall.dto.ProductRequest;
 import com.jason.springbootmall.dto.UserLoginRequest;
+import com.jason.springbootmall.dto.UserPasswordUpdateRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
 import com.jason.springbootmall.model.User;
 import org.junit.jupiter.api.Test;
@@ -193,6 +194,76 @@ class UserControllerTest {
                 .andDo(print())
                 .andExpect(status().is(400));
     }
+
+    @Test
+    public void updatePassword_Success() throws Exception{
+        //先註冊一個帳號
+        UserRegisterRequest userRegisterRequest =new UserRegisterRequest();
+        userRegisterRequest.setEmail("test1@gmail.com");
+        userRegisterRequest.setPassword("password");
+        register(userRegisterRequest);
+
+        //修改密碼
+        UserPasswordUpdateRequest userPasswordUpdateRequest=new UserPasswordUpdateRequest();
+        userPasswordUpdateRequest.setEmail("test1@gmail.com");
+        userPasswordUpdateRequest.setNewPassword("newPassword");
+        String json=objectMapper.writeValueAsString(userPasswordUpdateRequest);
+
+        RequestBuilder builder=MockMvcRequestBuilders
+                .post("/users/updatePassword")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+        mockMvc.perform(builder)
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void updatePassword_EmailNotFound() throws Exception{
+
+        //先註冊一個帳號
+        UserRegisterRequest userRegisterRequest =new UserRegisterRequest();
+        userRegisterRequest.setEmail("test1@gmail.com");
+        userRegisterRequest.setPassword("password");
+        register(userRegisterRequest);
+
+        //修改密碼
+        UserPasswordUpdateRequest userPasswordUpdateRequest=new UserPasswordUpdateRequest();
+        userPasswordUpdateRequest.setEmail("test23@gmail.com");
+        userPasswordUpdateRequest.setNewPassword("newPassword");
+        String json=objectMapper.writeValueAsString(userPasswordUpdateRequest);
+
+        RequestBuilder builder=MockMvcRequestBuilders
+                .post("/users/updatePassword")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+        mockMvc.perform(builder)
+                .andDo(print())
+                .andExpect(status().is(400));
+    }
+    @Test
+    public void updatePassword_Empty() throws Exception{
+        //先註冊一個帳號
+        UserRegisterRequest userRegisterRequest =new UserRegisterRequest();
+        userRegisterRequest.setEmail("test1@gmail.com");
+        userRegisterRequest.setPassword("password");
+        register(userRegisterRequest);
+
+        //修改密碼
+        UserPasswordUpdateRequest userPasswordUpdateRequest=new UserPasswordUpdateRequest();
+        userPasswordUpdateRequest.setEmail(" ");
+        userPasswordUpdateRequest.setNewPassword(" ");
+        String json=objectMapper.writeValueAsString(userPasswordUpdateRequest);
+
+        RequestBuilder builder=MockMvcRequestBuilders
+                .post("/users/updatePassword")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+        mockMvc.perform(builder)
+                .andDo(print())
+                .andExpect(status().is(400));
+    }
+
     private void register(UserRegisterRequest userRegisterRequest) throws Exception {
         String json = objectMapper.writeValueAsString(userRegisterRequest);
 
