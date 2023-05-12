@@ -50,6 +50,10 @@ https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
 ![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/8765b272-6e8d-4db7-90af-8db778ec74a1)
 
 
+### 預設Mysql帳號
+     帳號: root
+     密碼: password
+
 ## Usage 
 
 ### 使用命令提示列開啟 SpringBootMall-0.0.1-SNAPSHOT.jar
