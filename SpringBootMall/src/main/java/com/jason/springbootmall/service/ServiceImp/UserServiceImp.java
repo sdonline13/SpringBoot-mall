@@ -2,6 +2,7 @@ package com.jason.springbootmall.service.ServiceImp;
 
 import com.jason.springbootmall.dao.UserDao;
 import com.jason.springbootmall.dto.UserLoginRequest;
+import com.jason.springbootmall.dto.UserPasswordUpdateRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
 import com.jason.springbootmall.model.User;
 import com.jason.springbootmall.service.UserService;
@@ -69,5 +70,18 @@ public class UserServiceImp implements UserService {
         }
 
         return user;//登入成功
+    }
+
+    @Override
+    public void updatePassword(UserPasswordUpdateRequest userPasswordUpdateRequest) {
+        User user=userDao.getUserByEmail(userPasswordUpdateRequest.getEmail());
+        if(user == null){
+            log.warn("信箱: {}  尚未註冊",userPasswordUpdateRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//尚未註冊
+        }
+
+        String hashNewPassword= sha256Encode(userPasswordUpdateRequest.getNewPassword()) ;
+        userPasswordUpdateRequest.setNewPassword(hashNewPassword);
+        userDao.updatePassword(userPasswordUpdateRequest);
     }
 }

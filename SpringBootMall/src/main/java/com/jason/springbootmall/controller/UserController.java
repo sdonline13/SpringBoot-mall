@@ -1,6 +1,7 @@
 package com.jason.springbootmall.controller;
 
 import com.jason.springbootmall.dto.UserLoginRequest;
+import com.jason.springbootmall.dto.UserPasswordUpdateRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
 import com.jason.springbootmall.model.User;
 import com.jason.springbootmall.service.UserService;
@@ -29,5 +30,11 @@ public class UserController {
     public  ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequest){
         User user =userService.login(userLoginRequest);
         return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+    @PostMapping("/users/updatePassword")
+    //更改密碼
+    public  ResponseEntity<?> updatePassword(@RequestBody @Valid UserPasswordUpdateRequest userPasswordUpdateRequest){
+        userService.updatePassword(userPasswordUpdateRequest);
+        return ResponseEntity.status(HttpStatus.OK).body("更改完成");
     }
 }

@@ -3,6 +3,7 @@ package com.jason.springbootmall.dao.impl;
 import com.jason.springbootmall.dao.UserDao;
 import com.jason.springbootmall.dao.rowMapper.UserRowMapper;
 import com.jason.springbootmall.dto.UserLoginRequest;
+import com.jason.springbootmall.dto.UserPasswordUpdateRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
 import com.jason.springbootmall.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,15 @@ public class UserDaoImp implements UserDao {
         if(rsList != null && rsList.size() > 0)
             return rsList.get(0);
         return null;
+    }
+
+    @Override
+    public void updatePassword(UserPasswordUpdateRequest userPasswordUpdateRequest) {
+        String sql="UPDATE `user` SET password= :newPassword WHERE email =:email";
+        Map<String,Object> map=new HashMap<>();
+        map.put("newPassword",userPasswordUpdateRequest.getNewPassword());
+        map.put("email",userPasswordUpdateRequest.getEmail());
+        namedParameterJdbcTemplate.update(sql,map);
     }
 
 
