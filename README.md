@@ -5,13 +5,13 @@
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-實作項目:
+## 實作項目:
 
-* 商品 查詢/新增/修改/刪除/功能
+### * 商品 查詢/新增/修改/刪除/功能
 
-* 帳號 登入/註冊/更改密碼 功能
+### * 帳號 登入/註冊/更改密碼 功能
 
-* 使用者 訂單功能
+### * 使用者 訂單功能
 
 ![](header.png)
 
