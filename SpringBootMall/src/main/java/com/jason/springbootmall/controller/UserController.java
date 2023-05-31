@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,12 @@ public class UserController {
     @PostMapping("/users/login")
     public  ResponseEntity<?> login(@RequestBody @Valid UserLoginRequest userLoginRequest){
         ResponseResult rs =userService.login(userLoginRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(rs);
+    }
+    @GetMapping("/users/logout")
+    //登出
+    public ResponseEntity<?> logout(){
+        ResponseResult rs =userService.logout();
         return ResponseEntity.status(HttpStatus.OK).body(rs);
     }
     @PostMapping("/users/updatePassword")
