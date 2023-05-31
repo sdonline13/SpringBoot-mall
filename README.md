@@ -78,7 +78,12 @@ java -jar SpringBootMall-0.0.1-SNAPSHOT.jar
  ![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/1ee85a2c-04b1-4e6a-8f02-602c5c0f52fe)
 
 
- 
+ ### 測試用帳號
+     帳號: user1@gmail.com
+     密碼: user1
+     
+     帳號: user2@gmail.com
+     密碼: user2
 
 ## Contributing
 
