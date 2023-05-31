@@ -47,7 +47,7 @@ https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB
 
 ## Import MySql Table Sql 
 
-位置 : SpringBoot-mall\SpringBootMall\MySqlTable    Tables.sql
+位置 : SpringBoot-mall\SpringBootMall\MySqlTable    SpringMall.sql
 
 
 ![image](https://github.com/sdonline13/SpringBoot-mall/assets/50354880/8765b272-6e8d-4db7-90af-8db778ec74a1)
