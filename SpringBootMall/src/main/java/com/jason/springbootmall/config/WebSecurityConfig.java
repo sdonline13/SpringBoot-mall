@@ -1,20 +1,26 @@
-package com.jason.springbootmall.spcurity;
+package com.jason.springbootmall.config;
 
+import com.jason.springbootmall.spcurity.filter.JWTFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 
 public class WebSecurityConfig{
 
-
+    @Autowired
+    JWTFilter jwtFilter;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -38,6 +44,8 @@ public class WebSecurityConfig{
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         // 允许直接访问授权登录接口
                         .requestMatchers( "/products/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/users/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
                         // 允许 SpringMVC 的默认错误地址匿名访问
                         .requestMatchers("/error").permitAll()
@@ -46,8 +54,11 @@ public class WebSecurityConfig{
                         // 允许任意请求被已登录用户访问，不检查Authority
                         .anyRequest().authenticated());
 
-
-
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);//設定FILTER 出現在哪個CLASS 之後
         return http.build();
+    }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 }

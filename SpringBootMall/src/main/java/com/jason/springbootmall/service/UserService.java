@@ -1,5 +1,6 @@
 package com.jason.springbootmall.service;
 
+import com.jason.springbootmall.dto.ResponseResult;
 import com.jason.springbootmall.dto.UserLoginRequest;
 import com.jason.springbootmall.dto.UserPasswordUpdateRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
@@ -10,6 +11,6 @@ public interface UserService {
    User getUserById(int userId);
    User getUserByEmail(String email);
 
-   User login(UserLoginRequest userLoginRequest);
+   ResponseResult login(UserLoginRequest userLoginRequest);
    void updatePassword(UserPasswordUpdateRequest userPasswordUpdateRequest);
 }

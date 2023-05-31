@@ -2,10 +2,12 @@ package com.jason.springbootmall.dao.impl;
 
 import com.jason.springbootmall.dao.UserDao;
 import com.jason.springbootmall.dao.rowMapper.UserRowMapper;
+import com.jason.springbootmall.dao.rowMapper.UserTokenRowMapper;
 import com.jason.springbootmall.dto.UserLoginRequest;
 import com.jason.springbootmall.dto.UserPasswordUpdateRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
 import com.jason.springbootmall.model.User;
+import com.jason.springbootmall.model.UserToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -68,6 +70,36 @@ public class UserDaoImp implements UserDao {
         map.put("newPassword",userPasswordUpdateRequest.getNewPassword());
         map.put("email",userPasswordUpdateRequest.getEmail());
         namedParameterJdbcTemplate.update(sql,map);
+    }
+
+    @Override
+    public UserToken getTokenByUserId(int userId) {
+        String sql="SELECT * FROM usertoken " +
+                "WHERE user_Id =:userId ";
+        Map<String,Object> map =new HashMap<>();
+        map.put("userId",userId);
+        List<UserToken> rsList=namedParameterJdbcTemplate.query(sql, map, new UserTokenRowMapper());
+        if(rsList.size()>0)
+            return rsList.get(0);
+        return null;
+    }
+
+    @Override
+    public void createUserToken(int userId, String token) {
+        String sql ="INSERT INTO usertoken(user_Id,token) VALUES(:userId,:token )";
+        Map map =new HashMap<>();
+        map.put("userId",userId);
+        map.put("token",token);
+        namedParameterJdbcTemplate.update(sql, map);
+    }
+
+    @Override
+    public void updateUserToken(int userId, String token) {
+        String sql ="Update usertoken set token =:token where user_Id = :userId";
+        Map<String,Object> map =new HashMap<>();
+        map.put("user_Id", userId);
+        map.put("token", token);
+        namedParameterJdbcTemplate.update(sql, map);
     }
 
 
