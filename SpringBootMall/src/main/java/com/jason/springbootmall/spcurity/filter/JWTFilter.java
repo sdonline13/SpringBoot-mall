@@ -45,6 +45,11 @@ public class JWTFilter extends OncePerRequestFilter {
         userId=claims.getSubject();
 
         UserToken userToken = userDao.getTokenByUserId(Integer.parseInt(userId));
+        if(userToken ==null){
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().println("已經被登出，請重新登入");
+            return;
+        }//已經被登出
         if(!userToken.getToken().equals(token))//判斷token 與 db上相同
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         User user = userDao.getUserById(Integer.parseInt(userId));

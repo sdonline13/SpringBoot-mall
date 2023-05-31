@@ -12,5 +12,7 @@ public interface UserService {
    User getUserByEmail(String email);
 
    ResponseResult login(UserLoginRequest userLoginRequest);
+   ResponseResult logout();
    void updatePassword(UserPasswordUpdateRequest userPasswordUpdateRequest);
+
 }

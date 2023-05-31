@@ -15,4 +15,5 @@ public interface UserDao {
     UserToken getTokenByUserId(int userId);
     void createUserToken(int userId,String token);
     void updateUserToken(int userId,String token);
+    void deleteUserTokenById(int userId);
 }

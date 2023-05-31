@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -110,6 +111,16 @@ public class UserServiceImp implements UserService {
         map.put("token",jwt);
         userDao.createUserToken(Integer.parseInt(userId) ,jwt);
         return new ResponseResult(200,"登入成功",map);
+    }
+
+    @Override
+    public ResponseResult logout() {
+        //獲取 SecurityContextHolder中的使用者 id
+        UsernamePasswordAuthenticationToken authentication= (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        UserToken principal= (UserToken)authentication.getPrincipal();
+        //刪除 資料庫中的token
+        userDao.deleteUserTokenById(principal.getUserId());
+        return new ResponseResult(200,"登出成功",null);
     }
 
     @Override
