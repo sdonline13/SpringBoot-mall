@@ -251,7 +251,7 @@ class UserControllerTest {
 
         //修改密碼
         UserPasswordUpdateRequest userPasswordUpdateRequest=new UserPasswordUpdateRequest();
-        userPasswordUpdateRequest.setEmail(" ");
+        userPasswordUpdateRequest.setEmail("");
         userPasswordUpdateRequest.setNewPassword(" ");
         String json=objectMapper.writeValueAsString(userPasswordUpdateRequest);
 
