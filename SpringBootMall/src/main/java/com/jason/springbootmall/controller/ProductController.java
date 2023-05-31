@@ -12,6 +12,7 @@ import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,14 +32,14 @@ public class ProductController {
             return  ResponseEntity.notFound().build();
         return  ResponseEntity.ok().body(rs);
     }
-
+    @PreAuthorize("hasAnyAuthority('manager')")//需要管理員層級才可新增
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest  request) {
         Integer productId= productService.create(request);
         Product rs=productService.getById(productId);
         return ResponseEntity.status(HttpStatus.CREATED).body(rs);
     }
-
+    @PreAuthorize("hasAnyAuthority('manager')")//需要管理員層級才可修改
     @PutMapping ("/products/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable(name = "productId")Integer productId,
                                                  @RequestBody @Valid ProductRequest  request) {
@@ -50,6 +51,7 @@ public class ProductController {
         Product rs=productService.getById(productId);
         return ResponseEntity.status(HttpStatus.CREATED).body(rs);
     }
+    @PreAuthorize("hasAnyAuthority('manager')")//需要管理員層級才可刪除
     @DeleteMapping ("/products/{productId}")
     public  ResponseEntity<?> deleteProduct(@PathVariable(name = "productId")Integer productId){
         Product check=productService.getById(productId);

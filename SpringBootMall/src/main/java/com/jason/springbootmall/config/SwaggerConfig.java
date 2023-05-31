@@ -19,6 +19,7 @@ import java.util.Collections;
 
 @EnableSwagger2
 @EnableWebMvc
+
 public class SwaggerConfig {
     @Bean
     public Docket api() {

@@ -2,13 +2,18 @@ package com.jason.springbootmall.spcurity;
 
 import com.jason.springbootmall.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserDetailsImp implements UserDetails {
-    public UserDetailsImp(User user) {
+
+    public UserDetailsImp(User user,List<String> permissionsList) {
         this.user = user;
+        this.permissionsList =permissionsList;
     }
 
     public User getUser() {
@@ -19,12 +24,20 @@ public class UserDetailsImp implements UserDetails {
         this.user = user;
     }
 
-    User user;
+    private User user;
+    private List<String> permissionsList;
 
-
+    private  List<SimpleGrantedAuthority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if(authorities!=null)//
+            return  authorities;
+        authorities =new ArrayList<>();//第一次執行
+        for (String permission : permissionsList) {
+            SimpleGrantedAuthority simpleAuthority =new SimpleGrantedAuthority(permission);
+            authorities.add(simpleAuthority);
+        }
+        return authorities;
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.jason.springbootmall.spcurity.filter;
 import com.jason.springbootmall.dao.UserDao;
 import com.jason.springbootmall.model.User;
 import com.jason.springbootmall.model.UserToken;
+import com.jason.springbootmall.spcurity.UserDetailsImp;
+import com.jason.springbootmall.spcurity.UserDetailsServiceImp;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +26,8 @@ import java.io.IOException;
 public class JWTFilter extends OncePerRequestFilter {
     @Autowired
     UserDao userDao;
-
+    @Autowired
+    UserDetailsServiceImp userDetailsServiceImp;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -54,7 +57,7 @@ public class JWTFilter extends OncePerRequestFilter {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         User user = userDao.getUserById(Integer.parseInt(userId));
         //存入SecurityContextHolder
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =new UsernamePasswordAuthenticationToken(userToken,null,null);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =new UsernamePasswordAuthenticationToken(userToken,null,userDetailsServiceImp.loadUserByUsername(user.getEmail()).getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         filterChain.doFilter(request,response);
     }
