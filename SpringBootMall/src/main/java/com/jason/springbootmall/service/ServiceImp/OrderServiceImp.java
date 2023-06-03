@@ -6,16 +6,15 @@ import com.jason.springbootmall.dao.UserDao;
 import com.jason.springbootmall.dto.BuyItem;
 import com.jason.springbootmall.dto.CreateOrderRequest;
 import com.jason.springbootmall.dto.OrderQueryParams;
-import com.jason.springbootmall.model.Order;
-import com.jason.springbootmall.model.OrderItem;
-import com.jason.springbootmall.model.Product;
-import com.jason.springbootmall.model.UserOrders;
+import com.jason.springbootmall.model.*;
 import com.jason.springbootmall.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -88,6 +87,7 @@ public class OrderServiceImp  implements OrderService {
     //取得訂單資訊
     @Override
     public Order getOrderById(Integer orderId) {
+
         Order order=orderDao.getOrderById(orderId);
         //拿到商品相關數據
         List<OrderItem> orderItemList =orderDao.getOrderItemsByOrderId(orderId);
@@ -98,6 +98,8 @@ public class OrderServiceImp  implements OrderService {
     @Override
     public List<Order> getOrder(OrderQueryParams orderQueryParams) {
         //根據 orderQueryParams 找出訂單
+        if(!authRequestUserById(orderQueryParams.getUserId()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         List<Order> orderList =orderDao.getOrders(orderQueryParams);
         for (Order val: orderList) {
             //針對每筆訂單 取得對應 OrderItemList
@@ -107,7 +109,12 @@ public class OrderServiceImp  implements OrderService {
 
         return orderList;
     }
-
+    boolean authRequestUserById(int userId){
+        //得到安全上下文驗證身分 (防止 此token 取得他人資料)
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        int securityContextUserId=((UserToken)authentication.getPrincipal()).getUserId();
+        return securityContextUserId ==userId;
+    }
     @Override
     public Integer countOrder(OrderQueryParams orderQueryParams) {
         return orderDao.countOrder(orderQueryParams);

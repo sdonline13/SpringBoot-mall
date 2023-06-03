@@ -4,6 +4,7 @@ import com.jason.springbootmall.dto.CreateOrderRequest;
 import com.jason.springbootmall.dto.OrderQueryParams;
 import com.jason.springbootmall.model.Order;
 import com.jason.springbootmall.model.UserOrders;
+import com.jason.springbootmall.model.UserToken;
 import com.jason.springbootmall.service.OrderService;
 import com.jason.springbootmall.util.Page;
 import jakarta.validation.Valid;
@@ -12,6 +13,8 @@ import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +38,7 @@ public class OrderController {
             @RequestParam(defaultValue = "10") @Max(100) @Min(0)Integer limit,
             @RequestParam(defaultValue = "0") @Min(0)Integer offset
     ){
+
         OrderQueryParams orderQueryParams =new OrderQueryParams();
         orderQueryParams.setUserId(userId);
         orderQueryParams.setLimit(limit);
