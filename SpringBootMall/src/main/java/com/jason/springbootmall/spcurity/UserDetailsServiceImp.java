@@ -1,6 +1,7 @@
 package com.jason.springbootmall.spcurity;
 
 import com.jason.springbootmall.dao.UserDao;
+import com.jason.springbootmall.model.Role;
 import com.jason.springbootmall.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,9 +20,12 @@ public class UserDetailsServiceImp  implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user =userDao.getUserByEmail(username);
-
+        List<Role> roles=userDao.getUserRolesByUserId(user.getUserId());
         //查詢對應權限
-        List<String> permissionsList=new ArrayList<>(Arrays.asList("user","manager"));
+        List<String> permissionsList=new ArrayList();
+        for (Role role: roles) {
+            permissionsList.add(role.getRoleName());
+        }
         return new UserDetailsImp(user,permissionsList);
     }
 

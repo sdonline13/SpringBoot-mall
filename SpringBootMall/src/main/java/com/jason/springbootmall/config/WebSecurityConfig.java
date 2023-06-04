@@ -56,7 +56,7 @@ public class WebSecurityConfig{
                         // 允许其他任意請求被已登入用戶訪問，不检 查Authority
                         .anyRequest().authenticated());
 
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);//設定FILTER 出現在哪個CLASS 之後
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);//設定FILTER 出現在哪個CLASS 之前
         return http.build();
     }
     @Bean

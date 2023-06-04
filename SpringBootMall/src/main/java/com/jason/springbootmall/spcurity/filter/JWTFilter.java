@@ -1,6 +1,7 @@
 package com.jason.springbootmall.spcurity.filter;
 
 import com.jason.springbootmall.dao.UserDao;
+import com.jason.springbootmall.model.Role;
 import com.jason.springbootmall.model.User;
 import com.jason.springbootmall.model.UserToken;
 import com.jason.springbootmall.spcurity.UserDetailsImp;
@@ -21,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import utils.JwtUtil;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JWTFilter extends OncePerRequestFilter {
@@ -56,6 +58,7 @@ public class JWTFilter extends OncePerRequestFilter {
         if(!userToken.getToken().equals(token))//判斷token 與 db上相同
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         User user = userDao.getUserById(Integer.parseInt(userId));
+
         //存入SecurityContextHolder
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =new UsernamePasswordAuthenticationToken(userToken,null,userDetailsServiceImp.loadUserByUsername(user.getEmail()).getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
