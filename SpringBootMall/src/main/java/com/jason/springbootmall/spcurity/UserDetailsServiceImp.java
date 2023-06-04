@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class UserDetailsServiceImp  implements UserDetailsService {
     @Autowired
@@ -15,6 +19,10 @@ public class UserDetailsServiceImp  implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user =userDao.getUserByEmail(username);
-        return new UserDetailsImp(user);
+
+        //查詢對應權限
+        List<String> permissionsList=new ArrayList<>(Arrays.asList("user","manager"));
+        return new UserDetailsImp(user,permissionsList);
     }
+
 }
