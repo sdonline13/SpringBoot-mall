@@ -24,4 +24,5 @@ public interface UserDao {
 
     //Roles
     List<Role>getUserRolesByUserId(int userId);
+    void createRolesByUserId(int userId);
 }
