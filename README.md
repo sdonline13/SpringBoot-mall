@@ -13,6 +13,8 @@
 
 ### * RBAC角色 : User 、 Manager
 
+### * 使用Token : Json Web Token (JWT)
+
 ### * 使用者 訂單功能
 
 ## 使用版本:
