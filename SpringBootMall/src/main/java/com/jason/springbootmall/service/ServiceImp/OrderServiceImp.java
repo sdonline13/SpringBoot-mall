@@ -99,7 +99,7 @@ public class OrderServiceImp  implements OrderService {
     @Override
     public List<Order> getOrder(OrderQueryParams orderQueryParams) {
         //根據 orderQueryParams 找出訂單
-        if(authRequest.authRequestUserById(orderQueryParams.getUserId()))
+        if(!authRequest.authRequestUserById(orderQueryParams.getUserId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         List<Order> orderList =orderDao.getOrders(orderQueryParams);
         for (Order val: orderList) {
