@@ -1,11 +1,13 @@
 package com.jason.springbootmall.dao.impl;
 
 import com.jason.springbootmall.dao.UserDao;
+import com.jason.springbootmall.dao.rowMapper.RoleRowMapper;
 import com.jason.springbootmall.dao.rowMapper.UserRowMapper;
 import com.jason.springbootmall.dao.rowMapper.UserTokenRowMapper;
 import com.jason.springbootmall.dto.UserLoginRequest;
 import com.jason.springbootmall.dto.UserPasswordUpdateRequest;
 import com.jason.springbootmall.dto.UserRegisterRequest;
+import com.jason.springbootmall.model.Role;
 import com.jason.springbootmall.model.User;
 import com.jason.springbootmall.model.UserToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +110,20 @@ public class UserDaoImp implements UserDao {
         Map<String,Object> map =new HashMap<>();
         map.put("userId", userId);
         namedParameterJdbcTemplate.update(sql, map);
+    }
+
+    @Override
+    public List<Role> getUserRolesByUserId(int userId) {
+        String sql="SELECT user_roles.role_Id ,roles.role_Name\n" +
+                "FROM  `user` u \n" +
+                "join user_roles on u.user_Id=user_roles.user_Id \n" +
+                "join roles on roles.role_Id=user_roles.role_Id \n" +
+                "where u.user_Id =:userId";
+        Map<String,Object> map =new HashMap<>();
+        map.put("userId",userId);
+        List<Role> rsList=namedParameterJdbcTemplate.query(sql, map, new RoleRowMapper());
+
+        return rsList;
     }
 
 
