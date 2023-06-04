@@ -1,5 +1,6 @@
 package com.jason.springbootmall.service.ServiceImp;
 
+import com.jason.springbootmall.component.AuthRequest;
 import com.jason.springbootmall.dao.OrderDao;
 import com.jason.springbootmall.dao.ProductDao;
 import com.jason.springbootmall.dao.UserDao;
@@ -12,9 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,6 +30,9 @@ public class OrderServiceImp  implements OrderService {
     ProductDao productDao;
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    AuthRequest authRequest;
     @Transactional //防止操作失敗(兩張table需同時完成)
     @Override
     public Integer createOrder(Integer userId, CreateOrderRequest createOrderRequest) {
@@ -98,7 +99,7 @@ public class OrderServiceImp  implements OrderService {
     @Override
     public List<Order> getOrder(OrderQueryParams orderQueryParams) {
         //根據 orderQueryParams 找出訂單
-        if(!authRequestUserById(orderQueryParams.getUserId()))
+        if(authRequest.authRequestUserById(orderQueryParams.getUserId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         List<Order> orderList =orderDao.getOrders(orderQueryParams);
         for (Order val: orderList) {
@@ -109,12 +110,7 @@ public class OrderServiceImp  implements OrderService {
 
         return orderList;
     }
-    boolean authRequestUserById(int userId){
-        //得到安全上下文驗證身分 (防止 此token 取得他人資料)
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        int securityContextUserId=((UserToken)authentication.getPrincipal()).getUserId();
-        return securityContextUserId ==userId;
-    }
+
     @Override
     public Integer countOrder(OrderQueryParams orderQueryParams) {
         return orderDao.countOrder(orderQueryParams);
