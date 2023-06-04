@@ -126,5 +126,16 @@ public class UserDaoImp implements UserDao {
         return rsList;
     }
 
+    @Override //資料庫內預設插入 權限為 user (1)
+    public void createRolesByUserId(int userId) {
+        String sql ="INSERT INTO `mall`.`user_roles`\n" +
+                "(`user_Id`)\n" +
+                "VALUES\n" +
+                "( :userId);";
+        Map<String,Object> map =new HashMap<>();
+        map.put("userId",userId);
+        namedParameterJdbcTemplate.update(sql, map);
+    }
+
 
 }

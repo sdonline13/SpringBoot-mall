@@ -40,28 +40,16 @@ public class UserServiceImp implements UserService {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    //Sha256 Hash
-    public  String sha256Encode(String password)  {
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-        byte[] hash = md.digest(password.getBytes());
-        return Base64.getEncoder().encodeToString(hash);
-    }
-    //md5 Hash
-    public  String md5Encode(String password){
-        return DigestUtils.md5DigestAsHex(password.getBytes());
-    }
+
 
     @Override
     public int register(UserRegisterRequest userRegisterRequest) {
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
         String encodePassword=bCryptPasswordEncoder.encode(userRegisterRequest.getPassword());
         userRegisterRequest.setPassword(encodePassword);
-        return userDao.createUser(userRegisterRequest);
+        int userId= userDao.createUser(userRegisterRequest);
+        userDao.createRolesByUserId(userId);
+        return userId;
     }
 
     @Override
